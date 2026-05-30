@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300;
+  }
+}
+
+/* Custom dark mode helper colors */
+.dark .bg-slate-805 {
+  background-color: #1e293b; /* Slate-800 equivalent */
+}
+
+.dark .bg-slate-850 {
+  background-color: #172033;
+}
+
+/* Custom scrollbars for clean dashboard aesthetics */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* ----------------------------------------------------
+   Print Styles for QR Ticket generation
+   ---------------------------------------------------- */
+@media print {
+  /* Reset document background and prevent multi-page overflow */
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 12pt;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Hide normal layout content */
+  .print\:hidden,
+  nav,
+  footer,
+  button {
+    display: none !important;
+  }
+
+  /* Reset height of React root and main structures to prevent blank page expansion */
+  #root, main, .min-h-screen, [class*="min-h-"] {
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    background-color: transparent !important;
+  }
+
+  /* Show and style only the printable ticket pass */
+  #printable-ticket {
+    display: block !important;
+    margin: 2rem auto !important;
+    width: 5.5in !important;
+    max-width: 90% !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 1rem !important;
+    padding: 2rem !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+
+  #printable-ticket img {
+    width: 2in !important;
+    height: 2in !important;
+    display: block !important;
+    margin: 1.25rem auto 0.5rem auto !important;
+  }
+}
