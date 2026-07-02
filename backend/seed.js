@@ -6,7 +6,7 @@ const Registration = require('./models/Registration');
 
 const seedData = async () => {
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/smart-event-portal';
+    const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://pranjularora:pranjul12345@cluster0.iqdxbpu.mongodb.net/';
     console.log(`Connecting to database for seeding: ${mongoUri}`);
     await mongoose.connect(mongoUri);
     console.log('Database connected!');
