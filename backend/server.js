@@ -11,7 +11,26 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://smart-event-registration-portal-74sf.onrender.com',
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (e.g., mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS policy: Origin ${origin} is not allowed`));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
