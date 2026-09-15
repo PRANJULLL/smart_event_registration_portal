@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Users, Tag } from 'lucide-react';
 
+import { getImageUrl } from '../utils/getImageUrl';
+
 const EventCard = ({ event }) => {
   const {
     _id,
@@ -22,13 +24,6 @@ const EventCard = ({ event }) => {
     day: 'numeric',
     year: 'numeric',
   });
-
-  const getImageUrl = () => {
-    if (image) {
-      return `${import.meta.env.VITE_IMAGE_BASE_URL}/${image}`;
-    }
-    return 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80';
-  };
 
   // Dynamic colors for tags
   const getCategoryColor = (cat) => {
@@ -61,8 +56,12 @@ const EventCard = ({ event }) => {
       {/* Banner Image */}
       <div className="relative aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
         <img
-          src={getImageUrl()}
+          src={getImageUrl(image)}
           alt={title}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80';
+          }}
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {/* Status Badge */}

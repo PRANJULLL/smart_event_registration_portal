@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   getEvents,
+  seedEvents,
   getEventById,
   createEvent,
   updateEvent,
@@ -11,6 +12,7 @@ const { protect, authorize } = require('../middlewares/auth');
 const upload = require('../middlewares/upload');
 
 router.get('/', getEvents);
+router.all('/seed', seedEvents);
 router.get('/:id', getEventById);
 router.post('/', protect, authorize('admin'), upload.single('image'), createEvent);
 router.put('/:id', protect, authorize('admin'), upload.single('image'), updateEvent);

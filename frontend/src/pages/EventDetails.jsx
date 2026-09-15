@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import api from '../utils/api';
 import { Calendar, MapPin, Users, User, ArrowLeft, Clock, CalendarRange, Check, AlertCircle, Loader, Ticket } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -164,8 +165,12 @@ const EventDetails = () => {
             {/* Banner Image */}
             <div className="relative aspect-video rounded-3xl overflow-hidden shadow-lg bg-slate-200 dark:bg-slate-950">
               <img
-                src={image ? `${import.meta.env.VITE_IMAGE_BASE_URL}/${image}` : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1200&q=80'}
+                src={getImageUrl(image)}
                 alt={title}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=1200&q=80';
+                }}
                 className="w-full h-full object-cover"
               />
               <span className="absolute top-4 left-4 bg-indigo-600 text-white font-bold text-xs uppercase px-3 py-1 rounded-full shadow-md">

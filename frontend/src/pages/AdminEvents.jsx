@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import { Plus, Edit2, Trash2, Calendar, MapPin, Loader, X, Upload } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);
@@ -83,7 +84,7 @@ const AdminEvents = () => {
     setDeadline(formattedDeadline);
     setStatus(event.status);
     setImageFile(null);
-    setImagePreview(`${import.meta.env.VITE_IMAGE_BASE_URL}/${event.image}`);
+    setImagePreview(getImageUrl(event.image));
     setModalOpen(true);
   };
 
@@ -217,8 +218,12 @@ const AdminEvents = () => {
                       {/* Image + Title */}
                       <td className="px-6 py-4 flex items-center space-x-3">
                         <img
-                          src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${event.image}`}
+                          src={getImageUrl(event.image)}
                           alt={event.title}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=800&q=80';
+                          }}
                           className="w-12 h-8 object-cover rounded-lg bg-slate-100 dark:bg-slate-900"
                         />
                         <strong className="text-slate-800 dark:text-white line-clamp-1 max-w-[200px]">{event.title}</strong>

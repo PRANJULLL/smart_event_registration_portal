@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../utils/api';
 import { Search, FileSpreadsheet, Loader, Calendar, User, Ticket, Check, X, RefreshCw } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const AdminRegistrations = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -223,7 +224,7 @@ const AdminRegistrations = () => {
                         {/* Participant info */}
                         <td className="px-6 py-4 flex items-center space-x-3">
                           <img
-                            src={participant.avatar ? `${import.meta.env.VITE_IMAGE_BASE_URL}/${participant.avatar}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(participant.name)}&background=4f46e5&color=fff`}
+                            src={participant.avatar ? getImageUrl(participant.avatar) : `https://ui-avatars.com/api/?name=${encodeURIComponent(participant.name)}&background=4f46e5&color=fff`}
                             alt={participant.name}
                             className="w-8 h-8 rounded-full object-cover border"
                           />

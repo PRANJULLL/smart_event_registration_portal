@@ -5,6 +5,7 @@ import { logout } from '../store/authSlice';
 import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, Menu, X, Calendar, User as UserIcon, LogOut, LayoutDashboard, Shield, BookOpen } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { getImageUrl } from '../utils/getImageUrl';
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -36,7 +37,7 @@ const Navbar = () => {
 
   const getAvatarUrl = () => {
     if (user?.avatar) {
-      return `${import.meta.env.VITE_IMAGE_BASE_URL}/${user.avatar}`;
+      return getImageUrl(user.avatar);
     }
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=4f46e5&color=fff`;
   };
